@@ -50,6 +50,26 @@ Add django-query-tracer's middleware:
         ...
     ]
 
+Sample local setup fro development
+----------------------------------
+
+.. code-block:: python
+
+    # Install query_tracer
+
+    INSTALLED_APPS.append('query_tracer')
+
+    MIDDLEWARE_CLASSES += [
+        'query_tracer.middleware.QueryTracerMiddleware',
+    ]
+
+    QUERYTRACER_MODULES = (
+        'query_tracer.modules.sql.SQLRealTimeModule',
+        'query_tracer.modules.sql.SQLSummaryModule',
+        'query_tracer.modules.ajax.AjaxDumpModule',
+    )
+
+
 Features
 --------
 
