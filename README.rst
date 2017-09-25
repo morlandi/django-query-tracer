@@ -50,7 +50,7 @@ Add django-query-tracer's middleware:
         ...
     ]
 
-Sample local setup fro development
+Sample local setup for development
 ----------------------------------
 
 .. code-block:: python
@@ -81,9 +81,7 @@ Credits
 
 This project is a stripped down version of:
 
-*  django-devserver
-
-.. _django-devserver: https://github.com/dcramer/django-devserver
+*  `django-devserver <https://github.com/dcramer/django-devserver>`_
 
 
 Tools used in rendering this package:
