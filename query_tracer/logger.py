@@ -76,3 +76,9 @@ class GenericLogger(object):
     error = lambda x, *a, **k: x.log(level=logging.ERROR, *a, **k)
     critical = lambda x, *a, **k: x.log(level=logging.CRITICAL, *a, **k)
     fatal = lambda x, *a, **k: x.log(level=logging.FATAL, *a, **k)
+
+
+class EnhancedLogger(GenericLogger):
+    def __init__(self, module):
+        super(EnhancedLogger, self).__init__(module)
+        self.style.HTTP_INFO = termcolors.make_style(fg='black', bg='yellow')

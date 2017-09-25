@@ -1,5 +1,5 @@
+from __future__ import print_function
 # NOTE: currently unused
-
 import pprint
 
 try:
@@ -18,13 +18,13 @@ def trace(message, prettify=False):
         text = str(message)
     if prettify:
         text = pprint.pformat(text)
-    print '\x1b[1;33;40m' + text + '\x1b[0m'
+    print('\x1b[1;33;40m' + text + '\x1b[0m')
 
 
 def prettyprint_queryset(qs, colorize=True):
-    if colorize: print '\x1b[1;33;40m'
-    print sqlparse.format(str(qs.query), reindent=True, keyword_case='upper')
-    if colorize: print '\x1b[0m'
+    if colorize: print('\x1b[1;33;40m')
+    print(sqlparse.format(str(qs.query), reindent=True, keyword_case='upper'))
+    if colorize: print('\x1b[0m')
 
 
 def trace_func(fn):
