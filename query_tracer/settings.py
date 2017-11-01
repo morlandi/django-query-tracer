@@ -4,6 +4,7 @@ QUERYTRACER_MODULES = getattr(settings, 'QUERYTRACER_MODULES', (
     # 'query_tracer.modules.sql.SQLRealTimeModule',
     # 'query_tracer.modules.sql.SQLSummaryModule',
     # 'query_tracer.modules.ajax.AjaxDumpModule',
+    # 'query_tracer.modules.time.TimeModule',
 ))
 
 QUERYTRACER_FILTER_SQL = getattr(settings, 'QUERYTRACER_FILTER_SQL', False)

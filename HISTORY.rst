@@ -1,5 +1,9 @@
 .. :changelog:
 
+0.1.4
+-----
+* TimeModule added
+
 0.1.3
 -----
 * Prepare for Python3

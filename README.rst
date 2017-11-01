@@ -23,6 +23,11 @@ when a solution is available as PR.
 Being mostly interested in tracing db queries, I finally decided to package a
 stripped down version of the project.
 
+Screenshots
+-----------
+
+.. image:: screenshots/screenshot_001.png
+
 Quickstart
 ----------
 
@@ -67,14 +72,39 @@ Sample local setup for development
         'query_tracer.modules.sql.SQLRealTimeModule',
         'query_tracer.modules.sql.SQLSummaryModule',
         'query_tracer.modules.ajax.AjaxDumpModule',
+        'query_tracer.modules.time.TimeModule',
     )
-
 
 Features
 --------
 
 See file "query_tracer/settings.py" for available options, and refer to
 `django-devserver doc <https://github.com/dcramer/django-devserver>`_ for usage/
+
+Time module
+-----------
+
+A simple **TimeModule** module has been added to display the time required to
+process each Django view.
+
+Utility functions
+-----------------
+
+query_traces.utils.trace.trace
+    Prints a text message or list, optionally prettified
+
+query_traces.utils.trace.prettyprint_query
+    Format and print a generic SQL query
+
+query_traces.utils.trace.prettyprint_queryset
+    Format and print a queryset's query
+
+query_traces.utils.trace.trace_func
+    Prints function calls, showing actual parameters;
+    to be used as decorator
+
+query_traces.utils.time.ms_from_timedelta
+    Returns timedelta in milliseconds
 
 Credits
 -------

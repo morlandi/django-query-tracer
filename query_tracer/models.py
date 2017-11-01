@@ -61,7 +61,7 @@ def load_modules():
             raise exceptions.ImproperlyConfigured('Error importing query_tracer module "%s" does not define a "%s" class' % (name, class_name))
 
         try:
-            if class_name=='SQLSummaryModule':
+            if class_name in ['SQLSummaryModule', 'TimeModule', ]:
                 instance = cls(EnhancedLogger(cls))
             else:
                 instance = cls(GenericLogger(cls))
