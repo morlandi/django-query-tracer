@@ -4,6 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from query_tracer.logger import GenericLogger
 from query_tracer.logger import EnhancedLogger
+from query_tracer.logger import TimeLogger
 
 import logging
 
@@ -61,8 +62,10 @@ def load_modules():
             raise exceptions.ImproperlyConfigured('Error importing query_tracer module "%s" does not define a "%s" class' % (name, class_name))
 
         try:
-            if class_name in ['SQLSummaryModule', 'TimeModule', ]:
+            if class_name in ['SQLSummaryModule', ]:
                 instance = cls(EnhancedLogger(cls))
+            elif class_name in ['TimeModule', ]:
+                instance = cls(TimeLogger(cls))
             else:
                 instance = cls(GenericLogger(cls))
         except:

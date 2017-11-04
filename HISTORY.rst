@@ -1,5 +1,9 @@
 .. :changelog:
 
+0.1.5
+-----
+* Mimic SQLSummaryModule on completion of SQLRealTimeModule
+
 0.1.4
 -----
 * TimeModule added

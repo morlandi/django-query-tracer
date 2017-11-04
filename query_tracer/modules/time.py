@@ -19,4 +19,4 @@ class TimeModule(QueryTracerModule):
     def process_complete(self, request):
         self.stop = datetime.datetime.now()
         duration = ms_from_timedelta(self.stop - self.start)
-        self.logger.info('duration: %.3f ms' % duration)
+        self.logger.info(' ' * 80 + 'duration: %.3f ms' % duration)

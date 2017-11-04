@@ -82,3 +82,10 @@ class EnhancedLogger(GenericLogger):
     def __init__(self, module):
         super(EnhancedLogger, self).__init__(module)
         self.style.HTTP_INFO = termcolors.make_style(fg='black', bg='yellow')
+
+
+class TimeLogger(GenericLogger):
+    def __init__(self, module):
+        super(TimeLogger, self).__init__(module)
+        #self.style.HTTP_INFO = termcolors.make_style(fg='green', bg='black', opts=('underscore', ))
+        self.style.HTTP_INFO = termcolors.make_style(opts=('underscore', ))

@@ -68,6 +68,8 @@ class DatabaseStatTracker(DatabaseStatTracker):
     Replacement for CursorDebugWrapper which outputs information as it happens.
     """
     logger = None
+    queries = []
+
 
     def execute(self, sql, params=()):
         formatted_sql = sql % (params if isinstance(params, dict) else tuple(params))
@@ -100,6 +102,11 @@ class DatabaseStatTracker(DatabaseStatTracker):
                     'sql': formatted_sql,
                     'time': duration,
                 })
+            else:
+                self.queries.append({
+                    'sql': formatted_sql,
+                    'time': duration,
+                })
 
     def executemany(self, sql, param_list):
         start = datetime.now()
@@ -122,6 +129,11 @@ class DatabaseStatTracker(DatabaseStatTracker):
                     'sql': '%s times: %s' % (len(param_list), sql),
                     'time': duration,
                 })
+            else:
+                self.queries.append({
+                    'sql': '%s times: %s' % (len(param_list), sql),
+                    'time': duration,
+                })
 
 
 class SQLRealTimeModule(QueryTracerModule):
@@ -132,13 +144,30 @@ class SQLRealTimeModule(QueryTracerModule):
     logger_name = 'sql'
 
     def process_init(self, request):
+
         if not issubclass(utils.CursorDebugWrapper, DatabaseStatTracker):
             self.old_cursor = utils.CursorDebugWrapper
             utils.CursorDebugWrapper = DatabaseStatTracker
+            utils.CursorDebugWrapper.queries = []
+
         DatabaseStatTracker.logger = self.logger
 
     def process_complete(self, request):
+
         if issubclass(utils.CursorDebugWrapper, DatabaseStatTracker):
+
+            # Mimic SQLSummaryModule
+            queries = utils.CursorDebugWrapper.queries
+            num_queries = len(queries)
+            if num_queries:
+                unique = set([s['sql'] for s in queries])
+                prompt = 'SQL Summary %s ' % ('.' * 58)
+                self.logger.info(prompt + '[%(calls)s queries with %(dupes)s duplicates]' % dict(
+                    calls=num_queries,
+                    dupes=num_queries - len(unique),
+                #), duration=sum(float(c.get('time', 0)) for c in queries) * 1000)
+                ))
+
             utils.CursorDebugWrapper = self.old_cursor
 
 
