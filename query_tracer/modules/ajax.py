@@ -11,6 +11,15 @@ class AjaxDumpModule(QueryTracerModule):
 
     logger_name = 'ajax'
 
+    def process_request(self, request):
+        if request.is_ajax():
+            if not getattr(request, 'REQUEST', None):
+                request.REQUEST = request.GET if request.method=='GET' else request.POST
+            data = dict(request.REQUEST.items())
+            if settings.QUERYTRACER_AJAX_PRETTY_PRINT:
+                data = json.dumps(data, indent=4)
+            self.logger.info(data)
+
     def process_response(self, request, response):
         if request.is_ajax():
             # Let's do a quick test to see what kind of response we have
