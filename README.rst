@@ -74,6 +74,11 @@ Sample local setup for development
         'query_tracer.modules.ajax.AjaxDumpModule',
         'query_tracer.modules.time.TimeModule',
     )
+    
+    #QUERYTRACER_AJAX_CONTENT_LENGTH = 10000
+    QUERYTRACER_AJAX_PRETTY_PRINT = True
+    QUERYTRACER_TRUNCATE_SQL = False
+    
 
 Features
 --------
