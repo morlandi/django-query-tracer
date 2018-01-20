@@ -1,8 +1,12 @@
-from django.utils.deprecation import MiddlewareMixin
+try:
+    from django.utils.deprecation import MiddlewareMixin
+    BaseMiddlewareClass = MiddlewareMixin
+except ImportError, e:
+    BaseMiddlewareClass = object
 from query_tracer.models import MODULES
 
 
-class QueryTracerMiddleware(MiddlewareMixin):
+class QueryTracerMiddleware(BaseMiddlewareClass):
 
     def should_process(self, request):
         from django.conf import settings
