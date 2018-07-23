@@ -1,5 +1,9 @@
 .. :changelog:
 
+0.2.0
+-----
+* fix for Python 3.x
+
 0.1.5
 -----
 * Mimic SQLSummaryModule on completion of SQLRealTimeModule

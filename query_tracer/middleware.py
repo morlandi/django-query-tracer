@@ -1,7 +1,7 @@
 try:
     from django.utils.deprecation import MiddlewareMixin
     BaseMiddlewareClass = MiddlewareMixin
-except ImportError, e:
+except ImportError as e:
     BaseMiddlewareClass = object
 from query_tracer.models import MODULES
 
@@ -64,7 +64,7 @@ class QueryTracerMiddleware(BaseMiddlewareClass):
         if self.should_process(request):
             for mod in MODULES:
                 mod.process_view(request, view_func, view_args, view_kwargs)
-        #return view_func(request, *view_args, **view_kwargs)
+        # return view_func(request, *view_args, **view_kwargs)
 
     def process_init(self, request):
         # from query_tracer.utils.stats import stats
