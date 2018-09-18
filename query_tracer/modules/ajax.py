@@ -17,7 +17,10 @@ class AjaxDumpModule(QueryTracerModule):
                 request.REQUEST = request.GET if request.method=='GET' else request.POST
             data = dict(request.REQUEST.items())
             if settings.QUERYTRACER_AJAX_PRETTY_PRINT:
-                data = json.dumps(data, indent=4)
+                try:
+                    data = json.dumps(data, indent=4)
+                except:
+                    pass
             self.logger.info(data)
 
     def process_response(self, request, response):
@@ -26,5 +29,8 @@ class AjaxDumpModule(QueryTracerModule):
             if len(response.content) < settings.QUERYTRACER_AJAX_CONTENT_LENGTH:
                 content = response.content
                 if settings.QUERYTRACER_AJAX_PRETTY_PRINT:
-                    content = json.dumps(json.loads(content), indent=4)
+                    try:
+                        content = json.dumps(json.loads(content), indent=4)
+                    except:
+                        pass
                 self.logger.info(content)
