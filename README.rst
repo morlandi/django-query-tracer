@@ -55,6 +55,70 @@ Add django-query-tracer's middleware:
         ...
     ]
 
+Settings
+--------
+
+QUERYTRACER_MODULES
+
+    Selects active modules.
+
+    Default: []
+
+    Example::
+
+        QUERYTRACER_MODULES = [
+            'query_tracer.modules.sql.SQLRealTimeModule',
+            'query_tracer.modules.sql.SQLSummaryModule',
+            'query_tracer.modules.ajax.AjaxDumpModule',
+            'query_tracer.modules.time.TimeModule',
+        ]
+
+QUERYTRACER_FILTER_OUT_SQL
+
+    A list of regex patterns to filter out SQL queries.
+
+    Queries matching any of the given patterns will be excluded from log.
+
+    Example::
+
+        QUERYTRACER_FILTER_OUT_SQL [
+            re.compile('djkombu_\w+'),  # Filter all queries related to Celery
+        ]
+
+QUERYTRACER_FILTER_IN_SQL
+
+    A list of regex patterns to filter in SQL queries.
+
+    Only queries matching all patterns will be included in the log.
+
+    Example::
+
+        QUERYTRACER_FILTER_IN_SQL = [
+            re.compile('sync_logs'),
+            re.compile('date_created'),
+        ]
+
+DEVSERVER_TRUNCATE_SQL
+
+    Disable SQL query truncation (used in SQLRealTimeModule) setting this to False
+
+QUERYTRACER_AJAX_CONTENT_LENGTH
+
+    Ajax responses longer than this will not be logged.
+
+    Default: 300
+
+QUERYTRACER_AJAX_PRETTY_PRINT
+
+    If set, try to format ajax requests and responses as intented JSON
+
+QUERYTRACER_SQL_MIN_DURATION
+
+    Minimum time a query must execute to be shown, value is in MS
+
+    Default: None
+
+
 Sample local setup for development
 ----------------------------------
 
@@ -74,11 +138,15 @@ Sample local setup for development
         'query_tracer.modules.ajax.AjaxDumpModule',
         'query_tracer.modules.time.TimeModule',
     )
-    
+
     #QUERYTRACER_AJAX_CONTENT_LENGTH = 10000
     QUERYTRACER_AJAX_PRETTY_PRINT = True
     QUERYTRACER_TRUNCATE_SQL = False
-    
+
+    QUERYTRACER_FILTER_IN_SQL = [
+        re.compile('sync_logs'),
+        re.compile('date_created'),
+    ]
 
 Features
 --------

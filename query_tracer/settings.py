@@ -7,9 +7,11 @@ QUERYTRACER_MODULES = getattr(settings, 'QUERYTRACER_MODULES', (
     # 'query_tracer.modules.time.TimeModule',
 ))
 
-QUERYTRACER_FILTER_SQL = getattr(settings, 'QUERYTRACER_FILTER_SQL', False)
+QUERYTRACER_FILTER_OUT_SQL = getattr(settings, 'QUERYTRACER_FILTER_OUT_SQL', False)
+QUERYTRACER_FILTER_IN_SQL = getattr(settings, 'QUERYTRACER_FILTER_IN_SQL', False)
 QUERYTRACER_TRUNCATE_SQL = getattr(settings, 'QUERYTRACER_TRUNCATE_SQL', True)
 
+# ???
 QUERYTRACER_TRUNCATE_AGGREGATES = getattr(settings, 'QUERYTRACER_TRUNCATE_AGGREGATES', getattr(settings, 'QUERYTRACER_TRUNCATE_AGGREGATES', False))
 
 # This variable gets set to True when we're running the query_tracer

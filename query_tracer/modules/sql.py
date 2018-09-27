@@ -75,8 +75,11 @@ class DatabaseStatTracker(DatabaseStatTracker):
         formatted_sql = sql % (params if isinstance(params, dict) else tuple(params))
         if self.logger:
             message = formatted_sql
-            if settings.QUERYTRACER_FILTER_SQL:
-                if any(filter_.search(message) for filter_ in settings.QUERYTRACER_FILTER_SQL):
+            if settings.QUERYTRACER_FILTER_OUT_SQL:
+                if any(filter_.search(message) for filter_ in settings.QUERYTRACER_FILTER_OUT_SQL):
+                    message = None
+            if settings.QUERYTRACER_FILTER_IN_SQL:
+                if not all(filter_.search(message) for filter_ in settings.QUERYTRACER_FILTER_IN_SQL):
                     message = None
             if message is not None:
                 if settings.QUERYTRACER_TRUNCATE_SQL:
